@@ -28,8 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/cart', [CartController::class, 'index']);
-    Route::get('/cart/add/{book}', [CartController::class, 'add']);
+   # Route::get('/cart', [CartController::class, 'index']);
+    #Route::get('/cart/add/{book}', [CartController::class, 'add']);
 });
 
 require __DIR__.'/auth.php';
