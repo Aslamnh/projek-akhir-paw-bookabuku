@@ -55,31 +55,51 @@
 
             </button>
 
-            @auth
+@auth
 
-                <!-- Profile -->
-                <a href="#"
-                   class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-full">
+<div class="relative group">
 
-                    <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+    <!-- Tombol Profile -->
+    <button
+        class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-full transition">
 
-                    <span class="text-sm font-medium">
-                        {{ Auth::user()->name }}
-                    </span>
+        <div class="w-8 h-8 rounded-full bg-gray-300"></div>
 
-                </a>
+        <span class="text-sm font-medium">
+            {{ Auth::user()->name }}
+        </span>
 
-            @else
+    </button>
 
-                <!-- Login -->
-                <a href="{{ route('login') }}"
-                   class="bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold">
+    <!-- Dropdown -->
+    <div class="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
 
-                    Masuk/Daftar
+        <!-- Logout -->
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
 
-                </a>
+            <button type="submit"
+                class="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 rounded-xl">
 
-            @endauth
+                Logout
+
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+@else
+
+<a href="{{ route('login') }}"
+   class="bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition">
+
+    Masuk/Daftar
+
+</a>
+
+@endauth
 
         </div>
 
