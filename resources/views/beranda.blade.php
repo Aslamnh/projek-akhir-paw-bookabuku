@@ -37,9 +37,11 @@
             <!-- Keranjang, Notifikasi, dan Auth -->
             <div class="flex items-center space-x-4">
                 <!-- Cart Button -->
-                <button class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center transition duration-200 group" title="Keranjang">
+                <a href="/cart"
+                    class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center transition duration-200 group"
+                        title="Keranjang">
                     <img src="/icon-images/cart.png" alt="Cart" class="w-5 h-5">
-                </button>
+                </a>
 
                 <!-- Notification Button -->
                 <button class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center transition duration-200 group" title="Notifikasi">
