@@ -57,10 +57,11 @@
 
 @auth
 
-<div class="relative group">
+<div x-data="{ open: false }" class="relative">
 
     <!-- Tombol Profile -->
     <button
+        @click="open = !open"
         class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-full transition">
 
         <div class="w-8 h-8 rounded-full bg-gray-300"></div>
@@ -72,13 +73,18 @@
     </button>
 
     <!-- Dropdown -->
-    <div class="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
+    <div
+        x-show="open"
+        @click.outside="open = false"
+        x-transition
+        class="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
 
         <!-- Logout -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit"
+            <button
+                type="submit"
                 class="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 rounded-xl">
 
                 Logout
