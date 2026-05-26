@@ -98,12 +98,12 @@
 
 @else
 
-<a href="{{ route('login') }}"
-   class="bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition">
-
+<button onclick="document.getElementById('modal-auth').classList.remove('hidden')"
+        class="bg-gray-900 text-white text-sm font-semibold px-5 py-2 rounded-full 
+               hover:bg-white hover:text-black border border-transparent 
+               hover:border-gray-900 transition-all duration-200 active:scale-95">
     Masuk/Daftar
-
-</a>
+</button>
 
 @endauth
 
