@@ -1,52 +1,85 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — BookaBuku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#1a1a1a] min-h-screen flex flex-col">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    <nav class="bg-[#111] px-8 py-3 flex items-center gap-4">
+        <span class="text-white font-bold text-lg">BookaBuku</span>
+        <div class="flex-1 max-w-md ml-2">
+            <input type="text" placeholder="Temukan buku yang anda cari..."
+                   class="w-full bg-[#2a2a2a] border border-[#333] rounded-full px-4 py-2 text-sm text-gray-300 placeholder-gray-600 outline-none">
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+        <div class="ml-auto">
+            <a href="{{ route('login') }}"
+               class="bg-white text-black text-sm font-semibold px-5 py-2 rounded-full hover:bg-gray-100 transition">
+                Masuk/Daftar
             </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
         </div>
-    </form>
-</x-guest-layout>
+    </nav>
+
+    <div class="flex-1 bg-gradient-to-br from-[#2c2c2c] to-[#1a1a1a] flex items-center justify-center p-6">
+        <div class="flex w-full max-w-[680px] rounded-2xl overflow-hidden shadow-2xl"
+             style="animation: slideUp .35s ease-out">
+
+            <div class="hidden md:block w-[42%] flex-shrink-0 min-h-[500px]"
+                 style="background: url('{{ asset('bg-acc.img') }}') center/cover no-repeat">
+            </div>
+
+            <div class="flex-1 bg-[#fafafa] px-10 py-10 flex flex-col justify-center">
+                <h1 class="text-3xl font-bold text-gray-900 mb-1">Get Started</h1>
+                <p class="text-sm text-gray-400 mb-6">Buat Akun Baru</p>
+
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Nama Lengkap</label>
+                        <input type="text" name="name" value="{{ old('name') }}"
+                               placeholder="Nama lengkap kamu" required autofocus
+                               class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-black/5 transition">
+                        @error('name')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+                        <input type="email" name="email" value="{{ old('email') }}"
+                               placeholder="contoh@email.com" required
+                               class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-black/5 transition">
+                        @error('email')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+                        <input type="password" name="password" placeholder="••••••••" required
+                               class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-black/5 transition">
+                        @error('password')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="mb-2">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Konfirmasi Password</label>
+                        <input type="password" name="password_confirmation" placeholder="••••••••" required
+                               class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-black/5 transition">
+                    </div>
+                    <button type="submit"
+                            class="w-full mt-4 bg-gray-900 text-white rounded-full py-3 text-sm font-semibold hover:bg-black transition">
+                        Register
+                    </button>
+                </form>
+
+                <p class="text-center text-sm text-gray-400 mt-5">
+                    Sudah punya akun?
+                    <a href="{{ route('login') }}" class="font-semibold text-gray-900 hover:underline">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideUp {
+            from { opacity:0; transform:translateY(20px) }
+            to   { opacity:1; transform:translateY(0) }
+        }
+    </style>
+</body>
+</html>

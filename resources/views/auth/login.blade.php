@@ -1,47 +1,77 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — BookaBuku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#1a1a1a] min-h-screen flex flex-col">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <nav class="bg-[#111] px-8 py-3 flex items-center gap-4">
+        <span class="text-white font-bold text-lg">BookaBuku</span>
+        <div class="flex-1 max-w-md ml-2">
+            <input type="text" placeholder="Temukan buku yang anda cari..."
+                   class="w-full bg-[#2a2a2a] border border-[#333] rounded-full px-4 py-2 text-sm text-gray-300 placeholder-gray-600 outline-none">
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="ml-auto">
+            <a href="{{ route('login') }}"
+               class="bg-white text-black text-sm font-semibold px-5 py-2 rounded-full hover:bg-gray-100 transition">
+                Masuk/Daftar
+            </a>
         </div>
+    </nav>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
+    <div class="flex-1 bg-gradient-to-br from-[#2c2c2c] to-[#1a1a1a] flex items-center justify-center p-6">
+        <div class="flex w-full max-w-[680px] rounded-2xl overflow-hidden shadow-2xl"
+             style="animation: slideUp .35s ease-out">
+
+            <div class="hidden md:block w-[42%] flex-shrink-0 min-h-[420px]"
+                 style="background: url('{{ asset('bg-acc.img') }}') center/cover no-repeat">
+            </div>
+
+            <div class="flex-1 bg-[#fafafa] px-10 py-12 flex flex-col justify-center">
+                <h1 class="text-3xl font-bold text-gray-900 mb-1">Welcome</h1>
+                <p class="text-sm text-gray-400 mb-8">Login dengan Email</p>
+
+                @if ($errors->any())
+                    <div class="mb-4 px-4 py-3 bg-red-50 border border-red-300 text-red-600 text-sm rounded-lg">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+                        <input type="email" name="email" value="{{ old('email') }}"
+                               placeholder="contoh@email.com" required autofocus
+                               class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-black/5 transition">
+                    </div>
+                    <div class="mb-2">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+                        <input type="password" name="password" placeholder="••••••••" required
+                               class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-black/5 transition">
+                    </div>
+                    <button type="submit"
+                            class="w-full mt-5 bg-gray-900 text-white rounded-full py-3 text-sm font-semibold hover:bg-black transition">
+                        Login
+                    </button>
+                </form>
+
+                <p class="text-center text-sm text-gray-400 mt-6">
+                    Belum punya akun?
+                    <a href="{{ route('register') }}" class="font-semibold text-gray-900 hover:underline">Daftar sekarang</a>
+                </p>
+            </div>
         </div>
+    </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <style>
+        @keyframes slideUp {
+            from { opacity:0; transform:translateY(20px) }
+            to   { opacity:1; transform:translateY(0) }
+        }
+    </style>
+</body>
+</html>
