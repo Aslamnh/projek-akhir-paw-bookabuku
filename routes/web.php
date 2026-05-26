@@ -18,7 +18,7 @@ Route::get('/jual', function () {
 
 Route::get('/checkout', function () {
     return view('checkout');
-});
+})->name('checkout');
 
 Route::get('/login', function () {
     session()->flash('openLoginModal', true);

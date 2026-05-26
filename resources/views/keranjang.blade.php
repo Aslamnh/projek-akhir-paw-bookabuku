@@ -50,9 +50,12 @@
 
                 </div>
 
-                <button class="w-full mt-6 bg-black hover:bg-zinc-800 text-white py-3 rounded-xl font-medium transition">
-                    Checkout
-                </button>
+                <a href="{{ route('checkout') }}"
+   class="block w-full mt-6 bg-black hover:bg-zinc-800 text-white py-3 rounded-xl font-medium transition text-center">
+
+    Checkout
+
+</a>
 
             </div>
 
