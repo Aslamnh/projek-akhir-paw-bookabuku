@@ -16,24 +16,27 @@ Route::get('/jual', function () {
     return view('jual');
 })->name('jual');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/cart', function () {
-    return view('keranjang');
-});
-
 Route::get('/checkout', function () {
     return view('checkout');
 });
+
+Route::get('/login', function () {
+    session()->flash('openLoginModal', true);
+
+    return redirect()->route('beranda');
+})->name('login');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-   # Route::get('/cart', [CartController::class, 'index']);
-    #Route::get('/cart/add/{book}', [CartController::class, 'add']);
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::get('/cart/add/{book}', [CartController::class, 'add'])->name('cart.add');
+
 });
 
 require __DIR__.'/auth.php';

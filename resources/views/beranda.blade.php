@@ -171,7 +171,11 @@
             document.getElementById('modal-auth').classList.add('hidden');
         }
     }
-
+    @if(session('openLoginModal'))
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('modal-auth').classList.remove('hidden');
+    });
+@endif
     // Buka modal otomatis kalau ada error validasi
     @if ($errors->any())
         document.addEventListener('DOMContentLoaded', () => {
@@ -181,6 +185,7 @@
             @endif
         });
     @endif
+    
 </script>
 
 @endsection

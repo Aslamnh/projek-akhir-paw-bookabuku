@@ -29,7 +29,7 @@
 
             <input type="text"
                    placeholder="Temukan buku yang anda inginkan"
-                   class="w-full pl-12 pr-4 py-2.5 bg-gray-100 rounded-full text-sm">
+                   class="w-full pl-12 pr-4 py-2.5 border-0 bg-gray-100 rounded-full text-sm">
 
         </div>
 
@@ -37,14 +37,30 @@
         <div class="flex items-center space-x-4">
 
             <!-- Cart -->
-            <a href="/cart"
-               class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center">
+            @auth
 
-                <img src="/icon-images/cart.png"
-                     alt="Cart"
-                     class="w-5 h-5">
+<a href="{{ route('cart') }}"
+   class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center">
 
-            </a>
+    <img src="/icon-images/cart.png"
+         alt="Cart"
+         class="w-5 h-5">
+
+</a>
+
+@else
+
+<button
+    onclick="document.getElementById('modal-auth').classList.remove('hidden')"
+    class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center">
+
+    <img src="/icon-images/cart.png"
+         alt="Cart"
+         class="w-5 h-5">
+
+</button>
+
+@endauth
 
             <!-- Notification -->
             <button class="bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center">
