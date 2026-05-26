@@ -5,7 +5,7 @@
 <div class="max-w-7xl mx-auto px-6 py-8">
 
     <!-- Title -->
-   <h1 class="text-3xl font-bold mt-4 mb-0.5 text-center">
+   <h1 class="text-3xl font-bold mt-3 mb-5 text-center">
     Checkout
 </h1>
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
