@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookaBuku - Katalog</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@extends('layouts.app')
+
+@section('content')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
+            font-family: 'Public Sans', sans-serif;
             font-family: 'Public Sans', sans-serif;
             background-color: #f9fafb;
             color: #111827;
@@ -17,111 +14,6 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
-
-        /* Navbar */
-        .navbar {
-            position: sticky;
-            top: 0;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #f3f4f6;
-            z-index: 50;
-            transition: all 0.3s;
-        }
-        .navbar-content {
-            width: 100%;
-            padding: 0.875rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        @media (min-width: 768px) {
-            .navbar-content { padding-left: 2rem; padding-right: 2rem; }
-        }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            background-color: #f3f4f6;
-            border-radius: 9999px;
-            padding: 0.375rem 1rem 0.375rem 0.375rem;
-            gap: 0.625rem;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        .logo-link:hover { background-color: #e5e7eb; }
-        .logo-img { width: 2rem; height: 2rem; }
-        .logo-text { font-weight: 700; color: #1f2937; font-size: 0.875rem; letter-spacing: -0.025em; }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            max-width: 36rem;
-            margin: 0 2rem;
-            position: relative;
-        }
-        .search-btn {
-            position: absolute;
-            left: 0.375rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: none;
-            background: none;
-        }
-        .search-icon { width: 2rem; height: 2rem; }
-        .search-input {
-            width: 100%;
-            padding: 0.625rem 1rem 0.625rem 3rem;
-            background-color: #f3f4f6;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            color: #374151;
-            border: none;
-            outline: none;
-            transition: all 0.2s;
-        }
-        .search-input:focus {
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-            background-color: #f9fafb;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .icon-btn {
-            background-color: #f3f4f6;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-        .icon-btn:hover { background-color: #e5e7eb; }
-        .icon-img { width: 1.25rem; height: 1.25rem; }
-        
-        .login-btn {
-            background-color: #000;
-            color: #fff;
-            padding: 0.625rem 1.5rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-        .login-btn:hover { background-color: #1f2937; }
-        .login-btn:active { transform: scale(0.95); }
 
         /* Sub Navigation */
         .subnav {
@@ -136,12 +28,12 @@
         .subnav-content {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            font-size: 0.875rem;
+            gap: 48px;
+            font-size: 14px;
             font-weight: 500;
         }
         .subnav-link {
-            padding: 1rem 0;
+            padding: 16px 0;
             color: #9ca3af;
             text-decoration: none;
             transition: color 0.2s;
@@ -155,33 +47,33 @@
 
         /* Main Content */
         .main-content {
-            max-width: 80rem;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
+            padding: 48px 24px;
             min-height: 1000px;
         }
         @media (min-width: 768px) {
-            .main-content { padding-left: 2rem; padding-right: 2rem; }
+            .main-content { padding-left: 32px; padding-right: 32px; }
         }
 
         .header-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 2rem;
+            margin-bottom: 32px;
         }
         .katalog-title {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: 700;
             color: #111827;
             margin: 0;
         }
         .book-count {
-            font-size: 0.875rem;
+            font-size: 14px;
             font-weight: 500;
             color: #6b7280;
             background-color: #fff;
-            padding: 0.25rem 0.75rem;
+            padding: 4px 12px;
             border-radius: 9999px;
             border: 1px solid #e5e7eb;
         }
@@ -190,7 +82,7 @@
         .book-grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 1.5rem;
+            gap: 24px;
         }
         @media (min-width: 640px) { .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
         @media (min-width: 768px) { .book-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -199,7 +91,7 @@
         /* Book Card */
         .book-card {
             background-color: #f8f8f8;
-            border-radius: 0.5rem;
+            border-radius: 8px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -215,7 +107,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 24px;
             position: relative;
         }
         .book-image {
@@ -239,9 +131,9 @@
         .detail-btn {
             background-color: #fff;
             color: #000;
-            padding: 0.5rem 1rem;
+            padding: 8px 16px;
             border-radius: 9999px;
-            font-size: 0.875rem;
+            font-size: 14px;
             font-weight: 600;
             border: none;
             cursor: pointer;
@@ -249,25 +141,25 @@
         .detail-btn:hover { background-color: #f3f4f6; }
 
         .card-details {
-            padding: 1rem;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
         .book-author {
-            font-size: 0.75rem;
+            font-size: 12px;
             color: #6b7280;
-            margin-bottom: 0.25rem;
+            margin-bottom: 4px;
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
         .book-title {
-            font-size: 0.875rem;
+            font-size: 14px;
             font-weight: 700;
             color: #111827;
-            margin: 0 0 0.75rem 0;
+            margin: 0 0 12px 0;
             line-height: 1.375;
             flex-grow: 1;
             display: -webkit-box;
@@ -280,18 +172,18 @@
             align-items: center;
             justify-content: space-between;
             margin-top: auto;
-            padding-top: 0.5rem;
+            padding-top: 8px;
             border-top: 1px solid rgba(229,231,235,0.6);
         }
         .book-price {
             font-weight: 700;
             color: #111827;
-            font-size: 0.875rem;
+            font-size: 14px;
         }
         .cart-btn {
             background-color: #f3f4f6;
-            width: 1.75rem;
-            height: 1.75rem;
+            width: 28px;
+            height: 28px;
             border-radius: 9999px;
             display: flex;
             align-items: center;
@@ -302,8 +194,8 @@
         }
         .cart-btn:hover { background-color: #e5e7eb; }
         .cart-icon {
-            width: 0.875rem;
-            height: 0.875rem;
+            width: 14px;
+            height: 14px;
             opacity: 0.6;
             transition: opacity 0.2s;
         }
@@ -314,7 +206,7 @@
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 3rem 0;
+            padding: 48px 0;
             color: #6b7280;
         }
 
@@ -322,18 +214,18 @@
         
         .content-layout {
             display: flex;
-            gap: 1.5rem;
+            gap: 24px;
             align-items: flex-start;
         }
 
         /* ── FILTER SIDEBAR ── */
         .filter-sidebar {
             flex-shrink: 0;
-            width: 13rem;
+            width: 208px;
             background-color: #fff;
-            border-radius: 0.75rem;
+            border-radius: 12px;
             border: 1px solid #e5e7eb;
-            padding: 1.25rem;
+            padding: 20px;
             position: sticky;
             top: 130px;
             max-height: calc(100vh - 160px);
@@ -352,21 +244,21 @@
         }
 
         .filter-header {
-            font-size: 0.9375rem;
+            font-size: 15px;
             font-weight: 700;
             color: #111827;
-            margin: 0 0 1rem 0;
-            padding-bottom: 0.75rem;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
             border-bottom: 1px solid #f3f4f6;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
         .filter-header svg { opacity: 0.5; }
 
         .filter-section {
-            margin-bottom: 1.25rem;
-            padding-bottom: 1.25rem;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 1px solid #f3f4f6;
         }
         .filter-section:last-child {
@@ -376,15 +268,15 @@
         }
 
         .filter-section-title {
-            font-size: 0.8rem;
+            font-size: 13px;
             font-weight: 700;
             color: #374151;
-            margin: 0 0 0.625rem 0;
+            margin: 0 0 10px 0;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             display: flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 6px;
         }
         .filter-section-title svg { opacity: 0.45; }
 
@@ -395,29 +287,29 @@
             color: #fff;
             border: none;
             border-radius: 9999px;
-            padding: 0.4rem 0.875rem;
-            font-size: 0.8125rem;
+            padding: 7px 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            margin-bottom: 0.875rem;
+            margin-bottom: 14px;
             transition: background-color 0.2s;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 7px;
         }
         .filter-all-btn:hover { background-color: #374151; }
 
         .filter-checkbox-list {
             display: flex;
             flex-direction: column;
-            gap: 0.375rem;
+            gap: 7px;
         }
         .filter-checkbox-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.3rem 0.5rem;
-            border-radius: 0.375rem;
+            gap: 7px;
+            padding: 5px 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.15s;
         }
@@ -425,13 +317,12 @@
         .filter-checkbox-item input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
-            width: 1rem;
-            height: 1rem;
+            width: 16px;
+            height: 16px;
             border: 1.5px solid #d1d5db;
-            border-radius: 0.25rem;
+            border-radius: 4px;
             flex-shrink: 0;
             cursor: pointer;
-            transition: all 0.15s;
             position: relative;
         }
         .filter-checkbox-item input[type="checkbox"]:checked {
@@ -441,17 +332,17 @@
         .filter-checkbox-item input[type="checkbox"]:checked::after {
             content: '';
             position: absolute;
-            left: 0.2rem;
-            top: 0.05rem;
-            width: 0.3rem;
-            height: 0.55rem;
+            left: 4px;
+            top: 1px;
+            width: 5px;
+            height: 9px;
             border: 2px solid #fff;
             border-top: none;
             border-left: none;
             transform: rotate(45deg);
         }
         .filter-checkbox-label {
-            font-size: 0.8125rem;
+            font-size: 13px;
             color: #374151;
             cursor: pointer;
             user-select: none;
@@ -459,26 +350,26 @@
 
         .price-range-inputs {
             display: flex;
-            gap: 0.5rem;
+            gap: 8px;
             align-items: center;
         }
         .price-input-wrapper { flex: 1; }
         .price-input-label {
-            font-size: 0.6875rem;
+            font-size: 11px;
             font-weight: 600;
             color: #9ca3af;
-            margin-bottom: 0.25rem;
+            margin-bottom: 4px;
             display: block;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
         .price-input {
             width: 100%;
-            padding: 0.4rem 0.5rem;
+            padding: 7px 8px;
             background-color: #f3f4f6;
             border: 1px solid #e5e7eb;
-            border-radius: 0.375rem;
-            font-size: 0.8rem;
+            border-radius: 6px;
+            font-size: 13px;
             color: #374151;
             outline: none;
             transition: all 0.2s;
@@ -486,23 +377,23 @@
         }
         .price-input:focus { border-color: #9ca3af; background-color: #fff; }
         .price-separator {
-            font-size: 0.8rem;
+            font-size: 13px;
             color: #9ca3af;
-            margin-top: 1.1rem;
+            margin-top: 1.16px;
             flex-shrink: 0;
         }
 
         .filter-radio-list {
             display: flex;
             flex-direction: column;
-            gap: 0.375rem;
+            gap: 6px;
         }
         .filter-radio-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.3rem 0.5rem;
-            border-radius: 0.375rem;
+            gap: 8px;
+            padding: 5px 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.15s;
         }
@@ -510,8 +401,8 @@
         .filter-radio-item input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
-            width: 1rem;
-            height: 1rem;
+            width: 16px;
+            height: 16px;
             border: 1.5px solid #d1d5db;
             border-radius: 9999px;
             flex-shrink: 0;
@@ -526,7 +417,7 @@
             box-shadow: inset 0 0 0 2px #fff;
         }
         .filter-radio-label {
-            font-size: 0.8125rem;
+            font-size: 13px;
             color: #374151;
             cursor: pointer;
             user-select: none;
@@ -534,28 +425,28 @@
 
         .filter-select {
             width: 100%;
-            padding: 0.45rem 0.75rem;
+            padding: 8px 12px;
             background-color: #f3f4f6;
             border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            font-size: 0.8125rem;
+            border-radius: 8px;
+            font-size: 13px;
             color: #374151;
             outline: none;
             cursor: pointer;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 0.6rem center;
-            padding-right: 2rem;
+            background-position: right 10px center;
+            padding-right: 32px;
             transition: all 0.2s;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
         .filter-select:focus { border-color: #9ca3af; background-color: #fff; }
 
         .filter-actions {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 1.25rem;
+            gap: 8px;
+            margin-top: 20px;
         }
         .filter-apply-btn {
             flex: 1;
@@ -563,8 +454,8 @@
             color: #fff;
             border: none;
             border-radius: 9999px;
-            padding: 0.5rem 0;
-            font-size: 0.8125rem;
+            padding: 8px 0;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.2s, transform 0.1s;
@@ -577,8 +468,8 @@
             color: #374151;
             border: none;
             border-radius: 9999px;
-            padding: 0.5rem 0;
-            font-size: 0.8125rem;
+            padding: 8px 0;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -591,44 +482,6 @@
             min-width: 0;
         }
     </style>
-</head>
-<body>
-
-    <!-- Top Navigation bar -->
-    <nav class="navbar">
-        <div class="navbar-content">
-            <!-- Logo  -->
-            <a href="#" class="logo-link">
-                <img src="{{ asset('icon-images/logo.png') }}" alt="Logo" class="logo-img">
-                <span class="logo-text">BookaBuku</span>
-            </a>
-
-            <!-- Search Bar -->
-            <div class="search-container">
-                <button class="search-btn">
-                    <img src="{{ asset('icon-images/search.png') }}" alt="Search" class="search-icon">
-                </button>
-                <input type="text" placeholder="Temukan buku yang anda inginkan" class="search-input">
-            </div>
-
-            <!-- Keranjang, Notifikasi, dan Auth -->
-            <div class="nav-actions">
-                <!-- Cart Button -->
-                <button class="icon-btn" title="Keranjang">
-                    <img src="{{ asset('icon-images/cart.png') }}" alt="Cart" class="icon-img">
-                </button>
-
-                <!-- Notification Button -->
-                <button class="icon-btn" title="Notifikasi">
-                    <img src="{{ asset('icon-images/notification.png') }}" alt="Notification" class="icon-img">
-                </button>
-                
-                <a href="{{ route('login') }}" class="login-btn">
-                    Masuk/Daftar
-                </a>
-            </div>
-        </div>
-    </nav>
 
     <!-- Sub-navigation -->
     <div class="subnav">
@@ -774,7 +627,7 @@
                         </div>
                     </div>
                     @empty
-                    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #6b7280;"> 
+                    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 48px 0; color: #6b7280;"> 
                         Belum ada buku di katalog yang sesuai dengan filter Anda. 
                     </div>
                     @endforelse
@@ -785,26 +638,33 @@
         </div>
     </main>
     <script>
-        function applyFilter() {
+        async function applyFilter() {
             const checkedKategori = [...document.querySelectorAll('input[name="kategori"]:checked')].map(el => el.value.toLowerCase());
             const minPrice = document.getElementById('price-min').value;
             const maxPrice = document.getElementById('price-max').value;
             const sortField = document.getElementById('sort-field').value;
             const sortDir   = document.querySelector('input[name="sort_dir"]:checked')?.value || 'asc';
 
-            const params = new URLSearchParams();
-            if (checkedKategori.length > 0) params.append('kategori', checkedKategori.join(','));
-            if (minPrice) params.append('min_price', minPrice);
-            if (maxPrice) params.append('max_price', maxPrice);
-            if (sortField) params.append('sort_field', sortField);
-            params.append('sort_dir', sortDir);
+            let queryParts = [];
+
+            if (checkedKategori.length > 0) {
+                queryParts.push('kategori=' + checkedKategori.join(','));
+            }
+            if (minPrice) {
+                queryParts.push('min_price=' + minPrice);
+            }
+            if (maxPrice) {
+                queryParts.push('max_price=' + maxPrice);
+            }
+            if (sortField) {
+                queryParts.push('sort_field=' + sortField);
+            }
+            queryParts.push('sort_dir=' + sortDir);
+
+            let queryString = queryParts.join('&');
 
             // Fetch from backend
-            fetch(`{{ route('katalog') }}?${params.toString()}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
+            fetch(`?${queryString}`, {headers: {'X-Requested-With': 'XMLHttpRequest'}})
             .then(res => res.text())
             .then(html => {
                 document.getElementById('book-grid').innerHTML = html;
@@ -820,5 +680,4 @@
             applyFilter();
         }
     </script>
-</body>
-</html>
+@endsection
