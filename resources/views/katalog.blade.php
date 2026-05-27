@@ -620,9 +620,19 @@
                             
                             <div class="price-container">
                                 <span class="book-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
-                                <button class="cart-btn" title="Tambah ke Keranjang">
-                                    <img src="{{ asset('icon-images/cart.png') }}" alt="Cart" class="cart-icon">
-                                </button>
+                            <form action="{{ route('cart.add', $book->id) }}" method="POST">
+                            @csrf
+
+                            <button type="submit"
+                                    class="cart-btn"
+                                    title="Tambah ke Keranjang">
+
+                            <img src="{{ asset('icon-images/cart.png') }}"
+                             alt="Cart"
+                             class="cart-icon">
+
+                            </button>
+                        </form>
                             </div>
                         </div>
                     </div>

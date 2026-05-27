@@ -33,8 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Route ke cart dan add to cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::get('/cart/add/{book}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/add/{book}', [CartController::class, 'add'])->name('cart.add');
+    Route::delete('/cart/delete/{cartItem}',[CartController::class, 'delete'])->name('cart.delete');
+
 
     // CRUD Listing Jual Buku (hanya untuk user yang sudah login)
     Route::post('/jual', [JualController::class, 'store'])->name('jual.store');

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\CartItem;
 
 class Book extends Model
 {
@@ -24,5 +26,10 @@ class Book extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    //CartItems : 1 user bisa membeli banyak buku
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
     }
 }
