@@ -29,4 +29,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relasi: satu user memiliki banyak buku yang dijual.
+     */
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }
