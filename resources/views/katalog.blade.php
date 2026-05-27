@@ -619,21 +619,43 @@
                             <h3 class="book-title">{{ $book->title }}</h3>
                             
                             <div class="price-container">
-                                <span class="book-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
-                            <form action="{{ route('cart.add', $book->id) }}" method="POST">
-                            @csrf
 
-                            <button type="submit"
-                                    class="cart-btn"
-                                    title="Tambah ke Keranjang">
+    <span class="book-price">
+        Rp {{ number_format($book->price, 0, ',', '.') }}
+    </span>
 
-                            <img src="{{ asset('icon-images/cart.png') }}"
-                             alt="Cart"
-                             class="cart-icon">
+    @auth
 
-                            </button>
-                        </form>
-                            </div>
+    <form action="{{ route('cart.add', $book->id) }}" method="POST">
+        @csrf
+
+        <button type="submit"
+                class="cart-btn"
+                title="Tambah ke Keranjang">
+
+            <img src="{{ asset('icon-images/cart.png') }}"
+                 alt="Cart"
+                 class="cart-icon">
+
+        </button>
+    </form>
+
+    @else
+
+    <button
+        onclick="document.getElementById('modal-auth').classList.remove('hidden')"
+        class="cart-btn"
+        title="Login terlebih dahulu">
+
+        <img src="{{ asset('icon-images/cart.png') }}"
+             alt="Cart"
+             class="cart-icon">
+
+    </button>
+
+    @endauth
+
+</div>
                         </div>
                     </div>
                     @empty
