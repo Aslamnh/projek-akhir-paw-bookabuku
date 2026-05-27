@@ -24,15 +24,13 @@ class KatalogController extends Controller
             $query->orderBy($request->sort_field, $sortDir);
         }
 
-        $books = $query->get();
+        //temp ga ada category di db
+        // if ($request->filled('kategori')) {
+        //     $kategoris = explode(',', $request->kategori);
+        //     $query->whereIn('category', $kategoris);
+        // }
 
-        if ($request->filled('kategori')) {
-            $kategoris = explode(',', strtolower($request->kategori));
-            $books = $books->filter(function ($book) use ($kategoris) {
-                $bookCat = strtolower($book->category ?? 'novel');
-                return in_array($bookCat, $kategoris);
-            });
-        }
+        $books = $query->get();
 
         if ($request->ajax()) {
             return view('katalog', compact('books'))->fragment('book-grid');
