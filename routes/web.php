@@ -11,6 +11,9 @@ Route::get('/', function () {
 })->name('beranda');
 
 Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog');
+// Route::get('/katalog/buku/{buku}', [KatalogController::class, 'show'])->name('katalog.show');
+Route::get('/buku/{book}', [KatalogController::class, 'show'])->name('buku.show');
+
 
 // Halaman Jual — bisa diakses guest maupun user (controller handle keduanya)
 Route::get('/jual', [JualController::class, 'index'])->name('jual');
