@@ -64,10 +64,15 @@ class CheckoutController extends Controller
 
         // buat order
         $order = Order::create([
-            'user_id' => Auth::id(),
-            'total_price' => $total,
-            'status' => 'pending',
-        ]);
+
+        'user_id' => Auth::id(),
+        'total_price' => $total,
+        'status' => 'pending',
+        'payment_status' => 'unpaid',
+        'payment_method' => request('payment_method'),
+        'payment_id' => 'PAY-' . strtoupper(uniqid()),
+        'payment_code' => rand(100000, 999999),
+]);
 
         // buat order items
         foreach ($cartItems as $item) {
@@ -94,7 +99,7 @@ class CheckoutController extends Controller
             ->delete();
 
         return redirect()
-            ->route('checkout')
+            ->route('payment.show', $order->id)
             ->with('success', 'Order berhasil dibuat');
     }
 }

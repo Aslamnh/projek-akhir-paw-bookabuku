@@ -44,6 +44,12 @@ Route::middleware('auth')->group(function () {
     ->middleware('auth')
     ->name('checkout');
 
+    //Payment
+    Route::get('/payment/{order}', function ($id) {
+    $order = \App\Models\Order::findOrFail($id);
+    return view('payment', compact('order'));
+})->name('payment.show');
+
 
     Route::post('/jual', [JualController::class, 'store'])->name('jual.store');
     Route::put('/jual/{book}', [JualController::class, 'update'])->name('jual.update');
