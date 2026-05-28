@@ -6,6 +6,7 @@ use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\JualController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
@@ -13,10 +14,6 @@ Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog');
 Route::get('/buku/{book}', [KatalogController::class, 'show'])->name('buku.show');
 
 Route::get('/jual', [JualController::class, 'index'])->name('jual');
-
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
 
 Route::get('/login', function () {
     session()->flash('openLoginModal', true);
@@ -39,10 +36,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{book}', [CartController::class, 'add'])->name('cart.add');
     Route::delete('/cart/delete/{cartItem}',[CartController::class, 'delete'])->name('cart.delete');
 
+    //Checkout
+    Route::post('/checkout/process', [CheckoutController::class, 'process'])
+    ->middleware('auth')
+    ->name('checkout.process');
+    Route::get('/checkout', [CheckoutController::class, 'index'])
+    ->middleware('auth')
+    ->name('checkout');
+
+
     Route::post('/jual', [JualController::class, 'store'])->name('jual.store');
     Route::put('/jual/{book}', [JualController::class, 'update'])->name('jual.update');
     Route::delete('/jual/{book}', [JualController::class, 'destroy'])->name('jual.destroy');
-
     Route::post('/books/{book}/rate', [BerandaController::class, 'rate'])->name('books.rate');
 });
 Route::get('/beranda/recently-viewed', function () {
