@@ -398,7 +398,38 @@ body {
 
         {{-- Floating Cart Button --}}
         <a href="{{ route('cart') }}" class="cart-fab">
-            <img src="{{ asset('icon-images/cart.png') }}" alt="Cart" class="cart-fab__icon" />
+        @auth
+        <object>
+            <form action="{{ route('cart.add', $book->id) }}" method="POST">
+                @csrf
+                
+                <button type="submit"
+                class="cart-btn"
+                title="Tambah ke Keranjang">
+                
+                <img src="{{ asset('icon-images/cart.png') }}"
+                alt="Cart"
+                class="cart-fab__icon">
+                
+                        </button>
+                    </form>
+                </object>
+
+            @else
+
+            <button
+                onclick="document.getElementById('modal-auth').classList.remove('hidden')"
+                    class="cart-btn"
+                    title="Login terlebih dahulu">
+
+                    <img src="{{ asset('icon-images/cart.png') }}"
+                        alt="Cart"
+                        class="cart-fab__icon">
+
+                </button>
+
+            @endauth
+
 
         </a>
     </div>
