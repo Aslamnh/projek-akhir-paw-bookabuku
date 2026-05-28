@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->string('image')->nullable();
-            $table->decimal('rating', 3, 2)->default(0.00);
+            $table->decimal('rating', 3, 2)->nullable()->default(null); // ← diubah
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('category')->nullable();
             $table->timestamps();

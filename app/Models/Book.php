@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\CartItem;
+use App\Models\Rating;
 
 class Book extends Model
 {
@@ -20,16 +21,18 @@ class Book extends Model
         'category',
     ];
 
-    /**
-     * Relasi: buku ini dimiliki oleh satu user (penjual).
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    //CartItems : 1 user bisa membeli banyak buku
+
     public function cartItems()
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 }

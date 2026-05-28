@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
 class KatalogController extends Controller
 {
@@ -45,6 +46,14 @@ class KatalogController extends Controller
 
     public function show(Book $book)
     {
-        return view('detailbuku', compact('book'));
+        // Catat ke recently viewed jika user login
+        if (Auth::check()) {
+            \App\Models\RecentlyViewed::updateOrCreate(
+                ['user_id' => Auth::id(), 'book_id' => $book->id],
+                ['updated_at' => now()]
+            );
+        }
+
+        return view('detailbuku', compact('book')); // sesuaikan nama view kamu
     }
 }
