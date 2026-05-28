@@ -82,7 +82,9 @@
         @click="open = !open"
         class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-full transition">
 
-        <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+        <img src="{{ asset('icon-images/profile.png') }}"
+             alt="Profile"
+             class="w-8 h-8 rounded-full object-cover">
 
         <span class="text-sm font-medium">
             {{ Auth::user()->name }}
