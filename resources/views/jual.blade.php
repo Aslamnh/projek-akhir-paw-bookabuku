@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookaBuku - Jual Buku</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+@extends('layouts.app')
+
+@section('content')
+@include('layouts.subnav')
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
         body {
             font-family: 'Public Sans', sans-serif;
             background-color: #f9fafb;
@@ -16,108 +12,6 @@
             margin: 0;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-        }
-
-        /* ── NAVBAR ── */
-        .navbar {
-            position: sticky;
-            top: 0;
-            background-color: rgba(255,255,255,0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #f3f4f6;
-            z-index: 50;
-        }
-        .navbar-content {
-            width: 100%;
-            padding: 0.875rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        @media (min-width: 768px) {
-            .navbar-content { padding-left: 2rem; padding-right: 2rem; }
-        }
-        .logo-link {
-            display: flex; align-items: center;
-            background-color: #f3f4f6; border-radius: 9999px;
-            padding: 0.375rem 1rem 0.375rem 0.375rem;
-            gap: 0.625rem; text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        .logo-link:hover { background-color: #e5e7eb; }
-        .logo-img { width: 2rem; height: 2rem; }
-        .logo-text { font-weight: 700; color: #1f2937; font-size: 0.875rem; letter-spacing: -0.025em; }
-        .search-container {
-            display: flex; align-items: center;
-            flex: 1; max-width: 36rem;
-            margin: 0 2rem; position: relative;
-        }
-        .search-btn {
-            position: absolute; left: 0.375rem; top: 50%;
-            transform: translateY(-50%);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: none; background: none;
-        }
-        .search-icon { width: 2rem; height: 2rem; }
-        .search-input {
-            width: 100%;
-            padding: 0.625rem 1rem 0.625rem 3rem;
-            background-color: #f3f4f6; border-radius: 9999px;
-            font-size: 0.875rem; color: #374151;
-            border: none; outline: none; transition: all 0.2s;
-        }
-        .search-input:focus {
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-            background-color: #f9fafb;
-        }
-        .nav-actions { display: flex; align-items: center; gap: 1rem; }
-        .icon-btn {
-            background-color: #f3f4f6; width: 2.5rem; height: 2.5rem;
-            border-radius: 9999px; display: flex; align-items: center;
-            justify-content: center; transition: background-color 0.2s;
-            border: none; cursor: pointer;
-        }
-        .icon-btn:hover { background-color: #e5e7eb; }
-        .icon-img { width: 1.25rem; height: 1.25rem; }
-        .login-btn {
-            background-color: #000; color: #fff;
-            padding: 0.625rem 1.5rem; border-radius: 9999px;
-            font-size: 0.875rem; font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-        .login-btn:hover { background-color: #1f2937; }
-        .login-btn:active { transform: scale(0.95); }
-        .user-pill {
-            display: flex; align-items: center; gap: 0.5rem;
-            background-color: #f3f4f6; padding: 0.375rem 1rem 0.375rem 0.375rem;
-            border-radius: 9999px; font-size: 0.875rem; font-weight: 600;
-            color: #1f2937; position: relative; cursor: pointer;
-        }
-        .user-avatar {
-            width: 2rem; height: 2rem; border-radius: 9999px;
-            background-color: #d1d5db;
-        }
-
-        /* ── SUBNAV ── */
-        .subnav {
-            position: sticky; top: 69px;
-            border-bottom: 1px solid #e5e7eb;
-            background-color: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px); z-index: 40;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-        }
-        .subnav-content {
-            display: flex; justify-content: center;
-            gap: 3rem; font-size: 0.875rem; font-weight: 500;
-        }
-        .subnav-link {
-            padding: 1rem 0; color: #9ca3af;
-            text-decoration: none; transition: color 0.2s;
-        }
-        .subnav-link:hover { color: #000; }
-        .subnav-link.active {
-            color: #000; border-bottom: 2px solid #000; font-weight: 700;
         }
 
         /* ── MAIN ── */
@@ -518,76 +412,6 @@
         }
         .confirm-delete:hover { background-color: #b91c1c; }
     </style>
-</head>
-<body>
-
-    {{-- ═══ TOP NAV ═══ --}}
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="{{ route('beranda') }}" class="logo-link">
-                <img src="{{ asset('icon-images/logo.png') }}" alt="Logo" class="logo-img">
-                <span class="logo-text">BookaBuku</span>
-            </a>
-
-            <div class="search-container">
-                <button class="search-btn" type="button">
-                    <img src="{{ asset('icon-images/search.png') }}" alt="Search" class="search-icon">
-                </button>
-                <input type="text" placeholder="Temukan buku yang anda inginkan" class="search-input">
-            </div>
-
-            <div class="nav-actions">
-                @auth
-                    <a href="{{ route('cart') }}" class="icon-btn" title="Keranjang">
-                        <img src="{{ asset('icon-images/cart.png') }}" alt="Cart" class="icon-img">
-                    </a>
-                @else
-                    <button onclick="document.getElementById('modal-auth').classList.remove('hidden')"
-                            class="icon-btn" title="Keranjang">
-                        <img src="{{ asset('icon-images/cart.png') }}" alt="Cart" class="icon-img">
-                    </button>
-                @endauth
-
-                <button class="icon-btn" title="Notifikasi">
-                    <img src="{{ asset('icon-images/notification.png') }}" alt="Notification" class="icon-img">
-                </button>
-
-                @auth
-                    <div x-data="{ open: false }" class="relative" style="position:relative">
-                        <button @click="open = !open"
-                                style="display:flex;align-items:center;gap:0.5rem;background:#f3f4f6;padding:0.375rem 1rem 0.375rem 0.375rem;border-radius:9999px;border:none;cursor:pointer;">
-                            <div class="user-avatar"></div>
-                            <span style="font-size:0.875rem;font-weight:600;color:#1f2937;">{{ Auth::user()->name }}</span>
-                        </button>
-                        <div x-show="open" @click.outside="open=false" x-transition
-                             style="position:absolute;right:0;top:calc(100% + 0.5rem);width:10rem;background:#fff;border-radius:0.75rem;box-shadow:0 10px 30px rgba(0,0,0,0.12);border:1px solid #f3f4f6;z-index:99;">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit"
-                                        style="width:100%;text-align:left;padding:0.75rem 1rem;font-size:0.875rem;background:none;border:none;cursor:pointer;border-radius:0.75rem;">
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <button onclick="document.getElementById('modal-auth').classList.remove('hidden')"
-                            class="login-btn">
-                        Masuk/Daftar
-                    </button>
-                @endauth
-            </div>
-        </div>
-    </nav>
-
-    {{-- ═══ SUB-NAV ═══ --}}
-    <div class="subnav">
-        <div class="subnav-content">
-            <a href="{{ route('beranda') }}" class="subnav-link">Beranda</a>
-            <a href="{{ route('katalog') }}" class="subnav-link">Katalog</a>
-            <a href="{{ route('jual') }}"    class="subnav-link active">Jual</a>
-        </div>
-    </div>
 
     {{-- ═══ MAIN CONTENT ═══ --}}
     <main class="main-content">
@@ -891,112 +715,7 @@
         </div>
     </div>
 
-    {{-- ══════════════════════════════════════════
-         AUTH MODAL (copied from beranda)
-    ══════════════════════════════════════════ --}}
-    @guest
-    <div id="modal-auth"
-         class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
-         onclick="closeModalIfOutside(event)">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-        <div id="modal-card"
-             class="relative z-10 flex w-full max-w-[680px] rounded-2xl overflow-hidden shadow-2xl"
-             style="animation: slideUp .3s ease-out">
-            <div class="hidden md:block w-[42%] flex-shrink-0 min-h-[440px]"
-                 style="background: url('{{ asset('book-images/login-pic.jpg') }}') center/cover no-repeat"></div>
-            <div class="flex-1 bg-[#fafafa] px-10 py-10 flex flex-col justify-center">
-                <div id="tab-login">
-                    <h1 class="font-serif text-3xl font-bold text-gray-900 mb-1">Welcome</h1>
-                    <p class="text-sm text-gray-400 mb-7">Login dengan Email</p>
-                    @if($errors->has('email'))
-                        <div class="mb-4 px-4 py-3 bg-red-50 border border-red-300 text-red-600 text-sm rounded-lg">{{ $errors->first('email') }}</div>
-                    @endif
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
-                            <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" required autofocus
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 transition">
-                        </div>
-                        <div class="mb-2">
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
-                            <input type="password" name="password" placeholder="••••••••" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 transition">
-                        </div>
-                        <button type="submit" class="w-full mt-5 bg-gray-900 text-white rounded-full py-3 text-sm font-semibold hover:bg-black transition">
-                            Login
-                        </button>
-                    </form>
-                    <p class="text-center text-sm text-gray-400 mt-5">
-                        Belum punya akun?
-                        <button onclick="switchTab('register')" class="font-semibold text-gray-900 hover:underline">Daftar sekarang</button>
-                    </p>
-                </div>
-                <div id="tab-register" class="hidden">
-                    <h1 class="font-serif text-3xl font-bold text-gray-900 mb-1">Get Started</h1>
-                    <p class="text-sm text-gray-400 mb-6">Buat Akun Baru</p>
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Nama Lengkap</label>
-                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Nama lengkap kamu" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 transition">
-                            @error('name')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
-                            <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 transition">
-                            @error('email')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
-                            <input type="password" name="password" placeholder="••••••••" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 transition">
-                            @error('password')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="mb-2">
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" placeholder="••••••••" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gray-900 transition">
-                        </div>
-                        <button type="submit" class="w-full mt-4 bg-gray-900 text-white rounded-full py-3 text-sm font-semibold hover:bg-black transition">
-                            Register
-                        </button>
-                    </form>
-                    <p class="text-center text-sm text-gray-400 mt-5">
-                        Sudah punya akun?
-                        <button onclick="switchTab('login')" class="font-semibold text-gray-900 hover:underline">Login</button>
-                    </p>
-                </div>
-            </div>
-            <button onclick="document.getElementById('modal-auth').classList.add('hidden')"
-                    class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 text-gray-600 text-sm transition">✕</button>
-        </div>
-    </div>
-    <style>
-        @keyframes slideUp {
-            from { opacity:0; transform:translateY(20px) }
-            to   { opacity:1; transform:translateY(0) }
-        }
-    </style>
-    <script>
-        function switchTab(tab) {
-            document.getElementById('tab-login').classList.toggle('hidden', tab !== 'login');
-            document.getElementById('tab-register').classList.toggle('hidden', tab !== 'register');
-        }
-        function closeModalIfOutside(e) {
-            if (e.target === document.getElementById('modal-auth'))
-                document.getElementById('modal-auth').classList.add('hidden');
-        }
-        @if($errors->has('name') || $errors->has('password_confirmation'))
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('modal-auth').classList.remove('hidden');
-            switchTab('register');
-        });
-        @endif
-    </script>
-    @endguest
+
 
     {{-- ══════════════════════════════════════════
          SCRIPTS
@@ -1141,5 +860,4 @@
         @endif
     </script>
 
-</body>
-</html>
+@endsection
