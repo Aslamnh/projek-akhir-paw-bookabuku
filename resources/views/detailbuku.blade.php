@@ -105,7 +105,7 @@ body {
     line-height: 1.2;
     color: #1a1a1a;
     letter-spacing: -0.02em;
-    margin-bottom: 14px;
+    margin-bottom: 5px;
 }
 
 .info__meta-label {
@@ -150,11 +150,11 @@ body {
     color: #9a9a9a;
 }
 
-.seller-card__avatar img {
+/* .seller-card__avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
+} */
 
 
 
@@ -340,6 +340,7 @@ body {
         height: 22px;
     }
 }
+.rating-badge { font-size: 11px; color: #6b7280; display: flex; align-items: center; gap: 3px; margin-bottom: 8px; }
 </style>
 
 <div class="product-page">
@@ -364,8 +365,22 @@ body {
             <h1 class="info__title">
                 {{ $book->title ?? 'Judul Buku' }}
             </h1>
-
-            <p class="info__meta-label">Harga:</p>
+            <h2 class="info__meta-label">{{ $book->author ?? 'Penulis' }}</h2>
+            <!-- <h2 class="info__meta-label">{{ $book->category ?? 'Kategori ' }}</h2> -->
+            <!-- Rating average display -->
+            <div class="rating-badge" id="rating-display-{{ $book->id }}">
+                @if($book->rating !== null)
+                @for($i = 1; $i <= 5; $i++)
+                <svg width="11" height="11" fill="{{ $i <= round($book->rating) ? '#f59e0b' : '#e5e7eb' }}" viewBox="0 0 24 24">
+                    <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                </svg>
+                @endfor
+                <span id="rating-number-{{ $book->id }}">{{ number_format($book->rating, 1) }}</span>
+                @else
+                <span id="rating-number-{{ $book->id }}" style="font-style:italic; color:#d1d5db; font-size:11px;">Belum dirating</span>
+                    @endif
+                </div>
+            <p class="info__meta-label"><br>Harga:</p>
             <p class="info__price">Rp. {{ number_format($book->price ?? 50000, 0, ',', '.') }}</p>
 
             <div class="seller-card">
@@ -373,11 +388,11 @@ body {
                     <img src="{{ !empty($book->seller?->avatar) ? $book->seller->avatar : asset('icon-images/profile.png') }}" alt="{{ $book->seller?->name ?? 'Profile' }}" />
                 </div>
                 <div class="seller-card__body">
-                    <span class="seller-card__name">
-                        {{ $book->seller?->name ?? 'Budiono Siregar' }}
+                    <span class="seller-card__name:">
+                        {{ $book->user?->name ?? 'Unknown' }}
                     </span>
                     <span class="seller-card__online">
-                        Terakhir online {{ $book->seller?->last_online ?? '30 menit yang lalu' }}
+                        Penjual Buku
                     </span>
                 </div>
             </div>
@@ -388,6 +403,7 @@ body {
             </div>
 
             <div class="tab-content" id="tab-deskripsi">
+                <p class="tab-content__text">Kategori: {{ $book->category ?? 'Kategori' }}<br></p>
                 <p class="tab-content__text">
                     {{ $book->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }}
                 </p>
@@ -396,7 +412,6 @@ body {
             
         </div>
 
-        {{-- Floating Cart Button --}}
         @auth
 
         <form action="{{ route('cart.add', $book->id) }}"
