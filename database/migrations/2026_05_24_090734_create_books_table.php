@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('stock');
             $table->string('image')->nullable();
             $table->decimal('rating', 3, 2)->default(0.00);
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }
