@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+@include('layouts.subnav')
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
         body {
             font-family: 'Public Sans', sans-serif;
             font-family: 'Public Sans', sans-serif;
@@ -13,36 +13,6 @@
             margin: 0;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-        }
-
-        /* Sub Navigation */
-        .subnav {
-            position: sticky;
-            top: 69px;
-            border-bottom: 1px solid #e5e7eb;
-            background-color: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            z-index: 40;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-        }
-        .subnav-content {
-            display: flex;
-            justify-content: center;
-            gap: 48px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .subnav-link {
-            padding: 16px 0;
-            color: #9ca3af;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .subnav-link:hover { color: #000; }
-        .subnav-link.active {
-            color: #000;
-            border-bottom: 2px solid #000;
-            font-weight: 700;
         }
 
         /* Main Content */
@@ -483,20 +453,7 @@
         }
     </style>
 
-    <!-- Sub-navigation -->
-    <div class="subnav">
-        <div class="subnav-content">
-            <a href="{{ route('beranda') }}" id="tab-beranda" class="subnav-link">
-                Beranda
-            </a>
-            <a href="{{ route('katalog') }}" id="tab-katalog" class="subnav-link active">
-                Katalog
-            </a>
-            <a href="{{ route('jual') }}" id="tab-jual" class="subnav-link">
-                Jual
-            </a>
-        </div>
-    </div>
+
 
     <!-- Main Content -->
     <main class="main-content">
@@ -602,7 +559,7 @@
                 <div class="book-grid" id="book-grid">
                     @fragment('book-grid')
                     @forelse($books as $book)
-                    <div class="book-card" 
+                    <a href="{{ route('buku.show', $book->id) }}" class="book-card" 
                         data-price="{{ $book->price }}" 
                         data-title="{{ strtolower($book->title) }}" 
                         data-author="{{ strtolower($book->author) }}" 
@@ -610,7 +567,7 @@
                         <div class="book-cover-container">
                             <img src="{{ asset($book->image ?? 'book-images/jual.png') }}" alt="{{ $book->title }}" class="book-image">
                             <div class="hover-overlay">
-                                <button class="detail-btn">Lihat Detail</button>
+                                <span class="detail-btn">Lihat Detail</span>
                             </div>
                         </div>
                         
@@ -619,45 +576,13 @@
                             <h3 class="book-title">{{ $book->title }}</h3>
                             
                             <div class="price-container">
-
-    <span class="book-price">
-        Rp {{ number_format($book->price, 0, ',', '.') }}
-    </span>
-
-    @auth
-
-    <form action="{{ route('cart.add', $book->id) }}" method="POST">
-        @csrf
-
-        <button type="submit"
-                class="cart-btn"
-                title="Tambah ke Keranjang">
-
-            <img src="{{ asset('icon-images/cart.png') }}"
-                 alt="Cart"
-                 class="cart-icon">
-
-        </button>
-    </form>
-
-    @else
-
-    <button
-        onclick="document.getElementById('modal-auth').classList.remove('hidden')"
-        class="cart-btn"
-        title="Login terlebih dahulu">
-
-        <img src="{{ asset('icon-images/cart.png') }}"
-             alt="Cart"
-             class="cart-icon">
-
-    </button>
-
-    @endauth
-
-</div>
+                                <span class="book-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                                <object><button class="cart-btn" title="Tambah ke Keranjang" onclick="event.preventDefault(); /* implement cart add */">
+                                    <img src="{{ asset('icon-images/cart.png') }}" alt="Cart" class="cart-icon">
+                                </button></object>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     @empty
                     <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 48px 0; color: #6b7280;"> 
                         Belum ada buku di katalog yang sesuai dengan filter Anda. 

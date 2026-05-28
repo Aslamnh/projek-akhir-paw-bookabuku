@@ -17,9 +17,9 @@
         </a>
 
         <!-- Search -->
-        <div class="flex items-center flex-1 max-w-xl mx-8 relative">
+        <form action="{{ route('katalog') }}" method="GET" class="flex items-center flex-1 max-w-xl mx-8 relative">
 
-            <button class="absolute left-1.5 top-1/2 -translate-y-1/2">
+            <button type="submit" class="absolute left-1.5 top-1/2 -translate-y-1/2">
 
                 <img src="/icon-images/search.png"
                      alt="Search"
@@ -28,10 +28,12 @@
             </button>
 
             <input type="text"
+                   name="search"
+                   value="{{ request('search') }}"
                    placeholder="Temukan buku yang anda inginkan"
                    class="w-full pl-12 pr-4 py-2.5 border-0 bg-gray-100 rounded-full text-sm">
 
-        </div>
+        </form>
 
         <!-- Right Menu -->
         <div class="flex items-center space-x-4">

@@ -11,6 +11,10 @@ class KatalogController extends Controller
     {
         $query = Book::query();
 
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -37,5 +41,10 @@ class KatalogController extends Controller
         }
 
         return view('katalog', compact('books'));
+    }
+
+    public function show(Book $book)
+    {
+        return view('detailbuku', compact('book'));
     }
 }
