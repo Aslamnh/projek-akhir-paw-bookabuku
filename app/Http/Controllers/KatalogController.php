@@ -29,6 +29,9 @@ class KatalogController extends Controller
             $query->orderBy($request->sort_field, $sortDir);
         }
 
+        if ($request->filled('kategori')) {
+            $query->where('category', $request->kategori);
+        }
         //temp ga ada category di db
         // if ($request->filled('kategori')) {
         //     $kategoris = explode(',', $request->kategori);

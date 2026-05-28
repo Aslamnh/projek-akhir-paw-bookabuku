@@ -451,6 +451,8 @@
             flex: 1;
             min-width: 0;
         }
+
+        .rating-badge { font-size: 11px; color: #6b7280; display: flex; align-items: center; gap: 3px; margin-bottom: 8px; }
     </style>
 
 
@@ -574,7 +576,19 @@
                         <div class="card-details">
                             <div class="book-author">{{ $book->author }}</div>
                             <h3 class="book-title">{{ $book->title }}</h3>
-                            
+                                <!-- Rating average display -->
+                                <div class="rating-badge" id="rating-display-{{ $book->id }}">
+                                    @if($book->rating !== null)
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <svg width="11" height="11" fill="{{ $i <= round($book->rating) ? '#f59e0b' : '#e5e7eb' }}" viewBox="0 0 24 24">
+                                                <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                                            </svg>
+                                        @endfor
+                                        <span id="rating-number-{{ $book->id }}">{{ number_format($book->rating, 1) }}</span>
+                                    @else
+                                        <span id="rating-number-{{ $book->id }}" style="font-style:italic; color:#d1d5db; font-size:11px;">Belum dirating</span>
+                                    @endif
+                                </div>
                             <div class="price-container">
                                 <span class="book-price"> Rp {{ number_format($book->price, 0, ',', '.') }}</span> 
                                 @auth
@@ -596,9 +610,8 @@
 
                                 @else
 
-                                <object>
-                                    <button type="button"
-                                        onclick="event.preventDefault(); document.getElementById('modal-auth').classList.remove('hidden')"
+                                <button
+                                    onclick="document.getElementById('modal-auth').classList.remove('hidden')"
                                         class="cart-btn"
                                         title="Login terlebih dahulu">
 
@@ -607,7 +620,6 @@
                                             class="cart-icon">
 
                                     </button>
-                                </object>
 
                                 @endauth
 
@@ -668,10 +680,4 @@
             applyFilter();
         }
     </script>
-     @if(session('cart_success'))
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {openCartModal();});
-</script>
-
-@endif
 @endsection
