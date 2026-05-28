@@ -122,7 +122,14 @@
         to   { opacity:1; transform:translateY(0) }
     }
 </style>
+<script>
 
+function openAuthModal() {
+    document.getElementById('modal-auth')
+        .classList.remove('hidden');
+}
+
+</script>
 <script>
     function switchTab(tab) {
         document.getElementById('tab-login').classList.toggle('hidden', tab !== 'login');

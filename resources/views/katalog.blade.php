@@ -668,4 +668,10 @@
             applyFilter();
         }
     </script>
+     @if(session('cart_success'))
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {openCartModal();});
+</script>
+
+@endif
 @endsection

@@ -18,26 +18,26 @@ class CartController extends Controller
     }
 
     public function add(Book $book)
-    {
-        $cartItem = CartItem::where('user_id', Auth::id())
-            ->where('book_id', $book->id)
-            ->first();
+{
+    $cartItem = CartItem::where('user_id', Auth::id())
+        ->where('book_id', $book->id)
+        ->first();
 
-        if ($cartItem) {
+    if ($cartItem) {
 
-            $cartItem->increment('quantity');
+        $cartItem->increment('quantity');
 
-        } else {
+    } else {
 
-            CartItem::create([
-                'user_id' => Auth::id(),
-                'book_id' => $book->id,
-                'quantity' => 1,
-            ]);
-        }
-
-        return back()->with('success', 'Buku ditambahkan ke keranjang');
+        CartItem::create([
+            'user_id' => Auth::id(),
+            'book_id' => $book->id,
+            'quantity' => 1,
+        ]);
     }
+
+    return back()->with('cart_success', true);
+}
     public function delete(CartItem $cartItem)
 {
     // Pastikan item milik user yang login
