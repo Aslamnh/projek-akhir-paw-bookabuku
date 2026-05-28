@@ -17,14 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Buat User Utama untuk Pengujian (test@example.com)
+        // Main User
         $mainUser = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
         ]);
  
-        // Buat beberapa buku milik User Utama
         $mainUserBooks = [
             [
                 'title' => 'Laskar Pelangi',
@@ -62,31 +61,30 @@ class DatabaseSeeder extends Seeder
             $mainUser->books()->create($bookData);
         }
  
-        // 2. Buat User Tambahan (Budi Raharjo)
         $seller1 = User::factory()->create([
-            'name' => 'Budi Raharjo',
+            'name' => 'Budiono Siregar',
             'email' => 'budi@example.com',
             'password' => Hash::make('password'),
         ]);
  
         $seller1Books = [
             [
-                'title' => 'Bumi',
-                'author' => 'Tere Liye',
-                'description' => 'Petualangan dunia paralel tiga sekawan Raib, Seli, dan Ali yang memiliki kekuatan istimewa.',
+                'title' => 'That Time I Got Reincarnated as a Slime',
+                'author' => 'Fuse',
+                'description' => 'Seorang pria biasa bereinkarnasi menjadi slime di dunia fantasi dan memulai petualangannya.',
                 'price' => 95000,
-                'stock' => 4,
+                'stock' => 15,
                 'category' => 'Novel',
                 'image' => 'book-images/image 89.png',
-                'rating' => 4.6,
+                'rating' => 4.8,
             ],
             [
-                'title' => 'Habibie & Ainun',
-                'author' => 'B.J. Habibie',
-                'description' => 'Kisah cinta sejati presiden ke-3 RI B.J. Habibie dengan istrinya tercinta, Ainun.',
-                'price' => 85000,
-                'stock' => 2,
-                'category' => 'Biografi',
+                'title' => 'Solo Leveling',
+                'author' => 'Chugong',
+                'description' => 'Seseorang yang aura farming.',
+                'price' => 100000,
+                'stock' => 13,
+                'category' => 'Novel',
                 'image' => 'book-images/image 89.png',
                 'rating' => 4.9,
             ],
@@ -96,7 +94,6 @@ class DatabaseSeeder extends Seeder
             $seller1->books()->create($bookData);
         }
  
-        // 3. Buat User Tambahan (Siti Aminah)
         $seller2 = User::factory()->create([
             'name' => 'Siti Aminah',
             'email' => 'siti@example.com',
