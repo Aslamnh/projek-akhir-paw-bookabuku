@@ -774,9 +774,8 @@
                                 @endphp
                                 @foreach($books as $book)
                                     @php
-                                        // Simulasi jumlah terjual berdasarkan ID buku agar konsisten dan dinamis
-                                        $soldCount = ($book->id % 4) + 1; 
-                                        $totalBuku = $book->price * $soldCount;
+                                        $soldCount = $book->orderItems->sum('quantity'); 
+                                        $totalBuku = $book->orderItems->sum('subtotal');
                                         $totalPendapatan += $totalBuku;
                                     @endphp
                                     <tr style="border-bottom: 1px solid #f3f4f6; color: #374151;">

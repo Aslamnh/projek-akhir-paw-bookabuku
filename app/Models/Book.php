@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\CartItem;
 use App\Models\Rating;
+use App\Models\OrderItem;
 
 class Book extends Model
 {
@@ -34,5 +35,10 @@ class Book extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

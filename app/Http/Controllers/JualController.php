@@ -19,7 +19,7 @@ class JualController extends Controller
             return view('jual', compact('books'));
         }
 
-        $books = auth()->user()->books()->orderBy('created_at', 'desc')->get();
+        $books = auth()->user()->books()->with('orderItems')->orderBy('created_at', 'desc')->get();
         return view('jual', compact('books'));
     }
 
