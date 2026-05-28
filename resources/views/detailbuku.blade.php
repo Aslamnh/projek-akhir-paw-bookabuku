@@ -397,43 +397,48 @@ body {
         </div>
 
         {{-- Floating Cart Button --}}
-        <a href="{{ route('cart') }}" class="cart-fab">
         @auth
-        <object>
-            <form action="{{ route('cart.add', $book->id) }}" method="POST">
-                @csrf
-                
-                <button type="submit"
-                class="cart-btn"
-                title="Tambah ke Keranjang">
-                
-                <img src="{{ asset('icon-images/cart.png') }}"
-                alt="Cart"
-                class="cart-fab__icon">
-                
-                        </button>
-                    </form>
-                </object>
 
-            @else
+        <form action="{{ route('cart.add', $book->id) }}"
+             method="POST">
 
-            <button
-                onclick="document.getElementById('modal-auth').classList.remove('hidden')"
-                    class="cart-btn"
-                    title="Login terlebih dahulu">
+         @csrf
 
-                    <img src="{{ asset('icon-images/cart.png') }}"
-                        alt="Cart"
-                        class="cart-fab__icon">
+         <button type="submit"
+            class="cart-fab"
+            title="Tambah ke Keranjang">
 
-                </button>
+             <img src="{{ asset('icon-images/cart.png') }}"
+             alt="Cart"
+             class="cart-fab__icon">
 
-            @endauth
+          </button>
 
+        </form>
+@else
+
+<button type="button"
+        onclick="openAuthModal()"
+        class="cart-fab"
+        title="Login terlebih dahulu">
+
+    <img src="{{ asset('icon-images/cart.png') }}"
+         alt="Cart"
+         class="cart-fab__icon">
+
+</button>
+
+@endauth
 
         </a>
     </div>
 </div>
+    @if(session('cart_success'))
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {openCartModal();});
+</script>
+
+@endif
 
 @endsection
 

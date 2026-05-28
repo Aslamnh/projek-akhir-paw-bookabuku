@@ -9,10 +9,8 @@
 </head>
 
 <body>
-
     @include('layouts.navbar')
-    
-
+    @include('layouts.cart-success-modal')
     @yield('content')
     @include('layouts.auth-modal')
 </body>
