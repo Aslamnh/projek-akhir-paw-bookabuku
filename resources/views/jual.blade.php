@@ -43,6 +43,19 @@
             transition: background-color 0.2s, transform 0.1s;
             text-decoration: none;
         }
+        .sales-btn {
+            display: flex; align-items: center; gap: 0.5rem;
+            background-color: #fff; border: 1px solid #e5e7eb;
+            color: #374151;
+            padding: 0.625rem 1.25rem; border-radius: 9999px;
+            font-size: 0.875rem; font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            text-decoration: none;
+        }
+        .sales-btn:hover { background-color: #f3f4f6; }
+        .sales-btn:active { transform: scale(0.95); }
+        .sales-btn svg { width: 0.875rem; height: 0.875rem; }
         .add-btn:hover { background-color: #1f2937; }
         .add-btn:active { transform: scale(0.95); }
         .add-btn svg { width: 0.875rem; height: 0.875rem; }
@@ -451,21 +464,27 @@
                     <span class="book-count">{{ $books->count() }} Buku</span>
                 @endauth
             </div>
-            @auth
-                <button class="add-btn" onclick="openCreateModal()">
-                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                    </svg>
-                    Tambah Buku Baru
-                </button>
-            @else
-                <button class="add-btn" onclick="document.getElementById('modal-auth').classList.remove('hidden')">
-                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                    </svg>
-                    Tambah Buku Baru
-                </button>
-            @endauth
+            <div style="display:flex; gap:0.75rem;">
+                @auth
+                    <button class="sales-btn" onclick="openDetailPenjualanModal()">
+                        <img src="{{ asset('icon-images/sales.png') }}" alt="Sales" style="width: 0.875rem; height: 0.875rem;">
+                        Detail Penjualan
+                    </button>
+                    <button class="add-btn" onclick="openCreateModal()">
+                        <img src="{{ asset('icon-images/create-white.png') }}" alt="Create" style="width: 0.875rem; height: 0.875rem;">
+                        Tambah Buku Baru
+                    </button>
+                @else
+                    <button class="sales-btn" onclick="document.getElementById('modal-auth').classList.remove('hidden')">
+                        <img src="{{ asset('icon-images/sales.png') }}" alt="Sales" style="width: 0.875rem; height: 0.875rem;">
+                        Detail Penjualan
+                    </button>
+                    <button class="add-btn" onclick="document.getElementById('modal-auth').classList.remove('hidden')">
+                        <img src="{{ asset('icon-images/create-white.png') }}" alt="Create" style="width: 0.875rem; height: 0.875rem;">
+                        Tambah Buku Baru
+                    </button>
+                @endauth
+            </div>
         </div>
 
         {{-- ── BOOK GRID ── --}}
@@ -480,7 +499,8 @@
                         </div>
                         <p class="empty-title">Belum Ada Buku yang Dijual</p>
                         <p class="empty-desc">Mulai jual buku Anda agar muncul di Katalog BookaBuku.</p>
-                        <button class="add-btn" style="margin:0 auto;display:inline-flex;" onclick="openCreateModal()">
+                        <button class="add-btn" style="margin:0 auto;display:inline-flex;align-items:center;gap:0.5rem;" onclick="openCreateModal()">
+                            <img src="{{ asset('icon-images/create-white.png') }}" alt="Create" style="width: 0.875rem; height: 0.875rem;">
                             Mulai Jual Buku
                         </button>
                     </div>
@@ -521,9 +541,7 @@
                                                 'description' => $book->description,
                                                 'image'       => $book->image,
                                             ]) }})">
-                                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487z"/>
-                                        </svg>
+                                        <img src="{{ asset('icon-images/edit.png') }}" alt="Edit" style="width: 0.75rem; height: 0.75rem;">
                                         Edit
                                     </button>
 
@@ -536,9 +554,7 @@
                                         @method('DELETE')
                                         <button type="button" class="delete-btn"
                                                 onclick="openConfirmDelete({{ $book->id }}, '{{ addslashes($book->title) }}')">
-                                            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
-                                            </svg>
+                                            <img src="{{ asset('icon-images/delete-red.png') }}" alt="Hapus" style="width: 0.75rem; height: 0.75rem;">
                                             Hapus
                                         </button>
                                     </form>
@@ -715,6 +731,102 @@
         </div>
     </div>
 
+    {{-- ══════════════════════════════════════════
+         MODAL DETAIL PENJUALAN
+    ══════════════════════════════════════════ --}}
+    @auth
+    <div id="modal-detail-penjualan" class="modal-overlay" onclick="handleDetailOverlayClick(event)">
+        <div class="modal-card" id="modal-detail-penjualan-card" style="max-width: 650px;">
+
+            {{-- Header --}}
+            <div class="modal-header">
+                <div>
+                    <p class="modal-title">Detail Penjualan & Pendapatan</p>
+                    <p class="modal-subtitle">Ringkasan penjualan dari seluruh buku yang telah Anda listing.</p>
+                </div>
+                <button class="modal-close-btn" type="button" onclick="closeDetailPenjualanModal()">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            {{-- Body --}}
+            <div class="modal-body" style="padding: 1.5rem; display: flex; flex-direction: column; overflow-y: auto; max-height: 60vh;">
+                @if($books->isEmpty())
+                    <div style="text-align: center; padding: 2rem 0; color: #9ca3af;">
+                        Belum ada data buku untuk melihat detail penjualan.
+                    </div>
+                @else
+                    <div style="width: 100%; border-collapse: collapse;">
+                        <table style="width: 100%; text-align: left; font-size: 0.875rem;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #e5e7eb; color: #4b5563; font-weight: 600;">
+                                    <th style="padding: 0.75rem 0.5rem;">Buku</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: center;">Harga</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: center;">Terjual</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: right;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $totalPendapatan = 0;
+                                @endphp
+                                @foreach($books as $book)
+                                    @php
+                                        // Simulasi jumlah terjual berdasarkan ID buku agar konsisten dan dinamis
+                                        $soldCount = ($book->id % 4) + 1; 
+                                        $totalBuku = $book->price * $soldCount;
+                                        $totalPendapatan += $totalBuku;
+                                    @endphp
+                                    <tr style="border-bottom: 1px solid #f3f4f6; color: #374151;">
+                                        <td style="padding: 0.75rem 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                                            <img src="{{ asset($book->image ?? 'book-images/jual.png') }}" 
+                                                 alt="{{ $book->title }}" 
+                                                 style="width: 2.5rem; height: 3.2rem; object-fit: cover; border-radius: 0.25rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                            <div>
+                                                <div style="font-weight: 700; color: #111827; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; max-width: 250px;">
+                                                    {{ $book->title }}
+                                                </div>
+                                                <div style="font-size: 0.75rem; color: #6b7280;">{{ $book->author }}</div>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 0.75rem 0.5rem; text-align: center; white-space: nowrap;">
+                                            Rp {{ number_format($book->price, 0, ',', '.') }}
+                                        </td>
+                                        <td style="padding: 0.75rem 0.5rem; text-align: center; font-weight: 600;">
+                                            {{ $soldCount }}
+                                        </td>
+                                        <td style="padding: 0.75rem 0.5rem; text-align: right; font-weight: 700; color: #111827; white-space: nowrap;">
+                                            Rp {{ number_format($totalBuku, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+
+            {{-- Footer --}}
+            <div class="modal-footer" style="display: flex; flex-direction: column; gap: 1rem; padding: 1.25rem 1.5rem;">
+                @if(!$books->isEmpty())
+                    <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f0fdf4; border: 1px solid #bbf7d0; padding: 1rem; border-radius: 0.75rem;">
+                        <span style="font-size: 0.875rem; font-weight: 700; color: #166534;">TOTAL PENDAPATAN</span>
+                        <span style="font-size: 1.125rem; font-weight: 800; color: #15803d; letter-spacing: -0.025em;">
+                            Rp {{ number_format($totalPendapatan, 0, ',', '.') }}
+                        </span>
+                    </div>
+                @endif
+                <div style="display: flex; justify-content: flex-end;">
+                    <button type="button" class="btn-cancel" onclick="closeDetailPenjualanModal()">Tutup</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @endauth
+
 
 
     {{-- ══════════════════════════════════════════
@@ -858,6 +970,29 @@
                 document.body.style.overflow = 'hidden';
             });
         @endif
+
+        /* ── Detail Penjualan Modal ── */
+        function openDetailPenjualanModal() {
+            const modal = document.getElementById('modal-detail-penjualan');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeDetailPenjualanModal() {
+            const modal = document.getElementById('modal-detail-penjualan');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function handleDetailOverlayClick(e) {
+            if (e.target === document.getElementById('modal-detail-penjualan')) {
+                closeDetailPenjualanModal();
+            }
+        }
     </script>
 
 @endsection
