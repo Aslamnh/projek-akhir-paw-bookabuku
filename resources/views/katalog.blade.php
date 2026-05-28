@@ -576,20 +576,41 @@
                             <h3 class="book-title">{{ $book->title }}</h3>
                             
                             <div class="price-container">
-                                <span class="book-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
-                                    <form action="{{ route('cart.add', $book->id) }}" method="POST">
-                                        @csrf
+                                <span class="book-price"> Rp {{ number_format($book->price, 0, ',', '.') }}</span> 
+                                @auth
+                                    <object>
+                                        <form action="{{ route('cart.add', $book->id) }}" method="POST">
+                                            @csrf
 
-                                        <button type="submit"
+                                            <button type="submit"
                                                 class="cart-btn"
                                                 title="Tambah ke Keranjang">
 
-                                        <img src="{{ asset('icon-images/cart.png') }}"
-                                        alt="Cart"
-                                        class="cart-icon">
+                                            <img src="{{ asset('icon-images/cart.png') }}"
+                                                alt="Cart"
+                                                class="cart-icon">
 
-                                        </button>
-                                    </form>
+                                            </button>
+                                        </form>
+                                    </object>
+
+                                @else
+
+                                <object>
+                                    <button type="button"
+                                        onclick="event.preventDefault(); document.getElementById('modal-auth').classList.remove('hidden')"
+                                        class="cart-btn"
+                                        title="Login terlebih dahulu">
+
+                                        <img src="{{ asset('icon-images/cart.png') }}"
+                                            alt="Cart"
+                                            class="cart-icon">
+
+                                    </button>
+                                </object>
+
+                                @endauth
+
                             </div>
                         </div>
                     </a>
