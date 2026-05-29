@@ -8,12 +8,8 @@ use Illuminate\Support\Facades\File;
 
 class JualController extends Controller
 {
-    /**
-     * Display a listing of the authenticated user's books.
-     */
     public function index()
     {
-        // Guest: tampilkan halaman kosong dengan prompt login
         if (!auth()->check()) {
             $books = collect();
             return view('jual', compact('books'));
@@ -23,9 +19,6 @@ class JualController extends Controller
         return view('jual', compact('books'));
     }
 
-    /**
-     * Store a newly created book listing.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -61,9 +54,6 @@ class JualController extends Controller
         return redirect()->route('jual')->with('success', 'Buku berhasil didaftarkan untuk dijual!');
     }
 
-    /**
-     * Update the specified book listing.
-     */
     public function update(Request $request, Book $book)
     {
         abort_if($book->user_id !== auth()->id(), 403, 'Anda tidak berhak mengubah buku ini.');
@@ -81,7 +71,6 @@ class JualController extends Controller
         $imagePath = $book->image;
 
         if ($request->hasFile('image')) {
-            // Delete old custom image if it exists
             $defaultImages = ['book-images/jual.png', 'book-images/image 89.png', 'book-images/katalog.png', 'book-images/beranda.png'];
             if ($book->image && !in_array($book->image, $defaultImages)) {
                 $oldPath = public_path($book->image);
@@ -109,9 +98,6 @@ class JualController extends Controller
         return redirect()->route('jual')->with('success', 'Informasi buku berhasil diperbarui!');
     }
 
-    /**
-     * Delete the specified book listing.
-     */
     public function destroy(Book $book)
     {
         abort_if($book->user_id !== auth()->id(), 403, 'Anda tidak berhak menghapus buku ini.');
