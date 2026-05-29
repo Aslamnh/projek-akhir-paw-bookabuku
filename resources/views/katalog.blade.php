@@ -178,7 +178,6 @@
         color: #6b7280;
     }
 
-    /* Filter css */
     
     .content-layout {
         display: flex;
@@ -186,7 +185,6 @@
         align-items: flex-start;
     }
 
-    /* ── FILTER SIDEBAR ── */
     .filter-sidebar {
         flex-shrink: 0;
         width: 208px;
