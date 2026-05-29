@@ -14,7 +14,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ── MAIN ── */
         .main-content {
             max-width: 80rem; margin: 0 auto;
             padding: 3rem 1.5rem; min-height: 1000px;
@@ -23,7 +22,6 @@
             .main-content { padding-left: 2rem; padding-right: 2rem; }
         }
 
-        /* ── HEADER BAR ── */
         .header-bar {
             display: flex; align-items: center;
             justify-content: space-between; margin-bottom: 2rem;
@@ -60,7 +58,6 @@
         .add-btn:active { transform: scale(0.95); }
         .add-btn svg { width: 0.875rem; height: 0.875rem; }
 
-        /* ── BOOK GRID ── */
         .book-grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -70,7 +67,6 @@
         @media (min-width: 768px)  { .book-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
         @media (min-width: 1024px) { .book-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
-        /* ── BOOK CARD ── */
         .book-card {
             background-color: #f8f8f8; border-radius: 0.5rem;
             overflow: hidden; display: flex; flex-direction: column;
@@ -154,7 +150,6 @@
             width: 100%;
         }
 
-        /* ── EMPTY STATE ── */
         .empty-state {
             grid-column: 1 / -1; text-align: center;
             padding: 5rem 1rem;
@@ -167,7 +162,6 @@
         .empty-title { font-size: 1rem; font-weight: 700; color: #111827; margin: 0 0 0.25rem; }
         .empty-desc { font-size: 0.875rem; color: #6b7280; margin: 0 0 1.5rem; }
 
-        /* ── TOAST ── */
         .toast {
             position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
             background-color: #16a34a; color: #fff;
@@ -187,7 +181,6 @@
         }
         .toast-close:hover { opacity: 1; }
 
-        /* ── ERROR BANNER ── */
         .error-banner {
             background-color: #fef2f2; border: 1px solid #fecaca;
             color: #dc2626; padding: 1rem 1.25rem;
@@ -197,7 +190,7 @@
         .error-banner ul { margin: 0.5rem 0 0 1rem; padding: 0; }
         .error-banner li { margin-bottom: 0.25rem; }
 
-        /* ── MODAL OVERLAY ── */
+        /* Modal */
         .modal-overlay {
             position: fixed; inset: 0; z-index: 9000;
             display: none;
@@ -216,7 +209,6 @@
             to   { opacity: 1; }
         }
 
-        /* ── MODAL CARD ── */
         .modal-card {
             background: #fff; border-radius: 1rem;
             width: 100%; max-width: 780px;
@@ -245,7 +237,6 @@
         }
         .modal-close-btn:hover { color: #374151; background-color: #f3f4f6; }
 
-        /* ── MODAL BODY ── */
         .modal-body {
             display: flex; flex-direction: row; overflow: hidden;
             flex: 1;
@@ -254,7 +245,7 @@
             .modal-body { flex-direction: column; overflow-y: auto; }
         }
 
-        /* Left panel — upload */
+        /* Left panel — upload, price, stock */
         .modal-left {
             width: 240px; flex-shrink: 0;
             background-color: #f9fafb;
@@ -301,7 +292,6 @@
         .upload-label { font-size: 0.8125rem; font-weight: 600; color: #374151; }
         .upload-hint { font-size: 0.6875rem; color: #9ca3af; margin-top: 0.25rem; }
 
-        /* Price block */
         .price-block { background: #fff; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1rem; }
         .price-block-title { font-size: 0.875rem; font-weight: 700; color: #111827; margin: 0 0 0.75rem; }
         .price-field {
@@ -363,7 +353,7 @@
             cursor: pointer;
         }
 
-        /* ── MODAL FOOTER ── */
+        /* ── Modal Footer ── */
         .modal-footer {
             padding: 1rem 1.5rem;
             border-top: 1px solid #f3f4f6;
@@ -387,7 +377,7 @@
         .btn-submit:hover { background-color: #374151; }
         .btn-submit:active { transform: scale(0.96); }
 
-        /* ── CONFIRM DELETE MODAL ── */
+        /* Modal Confirm Delete */
         .confirm-overlay {
             position: fixed; inset: 0; z-index: 9100;
             display: none; align-items: center; justify-content: center;
@@ -426,10 +416,9 @@
         .confirm-delete:hover { background-color: #b91c1c; }
     </style>
 
-    {{-- ═══ MAIN CONTENT ═══ --}}
+    {{-- MAIN CONTENT--}}
     <main class="main-content">
 
-        {{-- Toast --}}
         @if(session('success'))
             <div class="toast" id="success-toast">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -444,7 +433,6 @@
             <script>setTimeout(() => { const t = document.getElementById('success-toast'); if(t) t.remove(); }, 4000);</script>
         @endif
 
-        {{-- Error Banner --}}
         @if($errors->any())
             <div class="error-banner">
                 <strong>Ada kesalahan:</strong>
@@ -456,7 +444,6 @@
             </div>
         @endif
 
-        {{-- ── HEADER BAR ── --}}
         <div class="header-bar">
             <div style="display:flex;align-items:center;gap:1rem;">
                 <h1 class="page-title">Listing Buku Saya</h1>
@@ -487,7 +474,6 @@
             </div>
         </div>
 
-        {{-- ── BOOK GRID ── --}}
         @auth
             @if($books->isEmpty())
                 <div class="book-grid">
@@ -584,13 +570,10 @@
 
     </main>
 
-    {{-- ══════════════════════════════════════════
-         MODAL CREATE / EDIT
-    ══════════════════════════════════════════ --}}
+    {{-- MODAL CREATE/EDIT --}}
     <div id="modal-jual" class="modal-overlay" onclick="handleOverlayClick(event)">
         <div class="modal-card" id="modal-jual-card">
 
-            {{-- Header --}}
             <div class="modal-header">
                 <div>
                     <p class="modal-title" id="modal-jual-title">Jual Buku Baru</p>
@@ -603,7 +586,6 @@
                 </button>
             </div>
 
-            {{-- Form --}}
             <form id="jual-form" method="POST" action="{{ route('jual.store') }}" enctype="multipart/form-data"
                   style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
                 @csrf
@@ -712,9 +694,7 @@
         </div>
     </div>
 
-    {{-- ══════════════════════════════════════════
-         CONFIRM DELETE MODAL
-    ══════════════════════════════════════════ --}}
+    {{-- MODAL CONFIRM DELETE --}}
     <div id="confirm-delete-modal" class="confirm-overlay">
         <div class="confirm-card">
             <div class="confirm-icon">
@@ -731,9 +711,7 @@
         </div>
     </div>
 
-    {{-- ══════════════════════════════════════════
-         MODAL DETAIL PENJUALAN
-    ══════════════════════════════════════════ --}}
+    {{-- MODAL DETAIL PENJUALAN --}}
     @auth
     <div id="modal-detail-penjualan" class="modal-overlay" onclick="handleDetailOverlayClick(event)">
         <div class="modal-card" id="modal-detail-penjualan-card" style="max-width: 650px;">
@@ -828,11 +806,8 @@
 
 
 
-    {{-- ══════════════════════════════════════════
-         SCRIPTS
-    ══════════════════════════════════════════ --}}
+    {{-- SCRIPT --}}
     <script>
-        /* ── Stock counter ── */
         let stockValue = 1;
 
         function changeStock(delta) {
@@ -841,7 +816,6 @@
             document.getElementById('field-stock').value = stockValue;
         }
 
-        /* ── Image preview ── */
         function handleImagePreview(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -854,21 +828,17 @@
             reader.readAsDataURL(file);
         }
 
-        /* ── Open / Close modal ── */
         function openCreateModal() {
-            // Reset form
             document.getElementById('jual-form').reset();
             document.getElementById('form-method').value = 'POST';
             document.getElementById('jual-form').action = '{{ route('jual.store') }}';
             document.getElementById('form-book-id').value = '';
             document.getElementById('modal-jual-title').textContent = 'Jual Buku Baru';
 
-            // Reset stock
             stockValue = 1;
             document.getElementById('stock-display').textContent = 1;
             document.getElementById('field-stock').value = 1;
 
-            // Reset preview
             document.getElementById('image-preview-wrap').style.display = 'none';
             document.getElementById('upload-default-layer').style.display = 'flex';
 
@@ -888,12 +858,10 @@
             document.getElementById('field-price').value       = book.price       || '';
             document.getElementById('field-category').value    = book.category    || '';
 
-            // Stock
             stockValue = parseInt(book.stock) || 0;
             document.getElementById('stock-display').textContent = stockValue;
             document.getElementById('field-stock').value = stockValue;
 
-            // Image preview
             if (book.image) {
                 document.getElementById('image-preview-img').src = '/' + book.image;
                 document.getElementById('image-preview-wrap').style.display = 'block';
@@ -903,7 +871,6 @@
                 document.getElementById('upload-default-layer').style.display = 'flex';
             }
 
-            // Reset file input so user can re-upload
             document.getElementById('image-input').value = '';
 
             document.getElementById('modal-jual').classList.add('active');
@@ -919,7 +886,6 @@
             if (e.target === document.getElementById('modal-jual')) closeJualModal();
         }
 
-        /* ── Confirm delete ── */
         let pendingDeleteId = null;
 
         function openConfirmDelete(bookId, bookTitle) {
@@ -941,10 +907,9 @@
             document.getElementById(`delete-form-${pendingDeleteId}`).submit();
         }
 
-        /* ── Re-open modal on validation error ── */
+        /* Error */
         @if($errors->any() && !$errors->has('email') && !$errors->has('name') && !$errors->has('password_confirmation'))
             document.addEventListener('DOMContentLoaded', () => {
-                // Re-populate from old() values
                 const oldMethod = '{{ old('_method', 'POST') }}';
                 const oldId     = '{{ old('id') }}';
                 if (oldMethod === 'PUT' && oldId) {
@@ -970,7 +935,6 @@
             });
         @endif
 
-        /* ── Detail Penjualan Modal ── */
         function openDetailPenjualanModal() {
             const modal = document.getElementById('modal-detail-penjualan');
             if (modal) {
