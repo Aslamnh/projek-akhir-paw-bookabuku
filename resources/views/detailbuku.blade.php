@@ -8,7 +8,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 
-/* --- Base --- */
 *,
 *::before,
 *::after {
@@ -24,9 +23,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================================
-   Page Wrapper
-   ============================================================ */
 .product-page {
     min-height: 100vh;
     background-color: #f7f7f5;
@@ -34,9 +30,6 @@ body {
     padding: 40px 0 80px;
 }
 
-/* ============================================================
-   Product Container (two-column layout)
-   ============================================================ */
 .product-container {
     display: flex;
     flex-direction: row;
@@ -51,9 +44,6 @@ body {
     position: relative;
 }
 
-/* ============================================================
-   Left Column – Gallery
-   ============================================================ */
 .gallery {
     flex: 0 0 420px;
     max-width: 420px;
@@ -75,9 +65,6 @@ body {
     display: block;
 }
 
-/* ============================================================
-   Vertical Divider
-   ============================================================ */
 .divider {
     flex: 0 0 1px;
     align-self: stretch;
@@ -85,9 +72,6 @@ body {
     margin: 32px 0;
 }
 
-/* ============================================================
-   Right Column – Product Info
-   ============================================================ */
 .info {
     flex: 1;
     min-width: 0;
@@ -97,14 +81,13 @@ body {
     gap: 0;
 }
 
-/* Title */
 .info__title {
     font-family: 'Public sans', sans-serif;
-    font-size: 2rem;
+    font-size: 32px;
     font-weight: 600;
     line-height: 1.2;
     color: #1a1a1a;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.32px;
     margin-bottom: 5px;
 }
 
@@ -113,18 +96,14 @@ body {
     font-weight: 500;
 }
 
-/* Price */
 .info__price {
-    font-size: 2rem;
+    font-size: 32px;
     font-weight: 700;
     color: #1a1a1a;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.48px;
     margin-bottom: 24px;
 }
 
-/* ============================================================
-   Seller Card
-   ============================================================ */
 .seller-card {
     display: flex;
     align-items: flex-start;
@@ -150,14 +129,6 @@ body {
     color: #9a9a9a;
 }
 
-/* .seller-card__avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-} */
-
-
-
 .seller-card__body {
     display: flex;
     flex-direction: column;
@@ -166,19 +137,16 @@ body {
 
 .seller-card__name {
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: 15px;
     color: #1a1a1a;
     line-height: 1.3;
 }
 
-.seller-card__online {
-    font-size: 0.8125rem;
+.seller-card__detail {
+    font-size: 13px;
     color: #9a9a9a;
 }
 
-/* ============================================================
-   Tabs
-   ============================================================ */
 .tabs {
     display: flex;
     gap: 0;
@@ -193,7 +161,7 @@ body {
     background: none;
     border: none;
     font-family: 'Public sans', sans-serif;
-    font-size: 0.9375rem;
+    font-size: 15px;
     font-weight: 500;
     color: #9a9a9a;
     cursor: pointer;
@@ -226,27 +194,17 @@ body {
     color: #1a1a1a;
 }
 
-/* ============================================================
-   Tab Content
-   ============================================================ */
 .tab-content {
     display: block;
 }
 
-.tab-content--hidden {
-    display: none;
-}
-
 .tab-content__text {
-    font-size: 0.9375rem;
+    font-size: 15px;
     line-height: 1.75;
     color: #4a4a4a;
     max-width: 680px;
 }
 
-/* ============================================================
-   Floating Cart Button (FAB)
-   ============================================================ */
 .cart-fab {
     position: absolute;
     bottom: 32px;
@@ -270,10 +228,6 @@ body {
     filter: brightness(0) invert(1);
 }
 
-
-/* ============================================================
-   Responsive
-   ============================================================ */
 @media (max-width: 900px) {
     .product-container {
         flex-direction: column;
@@ -301,11 +255,11 @@ body {
     }
 
     .info__title {
-        font-size: 1.5rem;
+        font-size: 24px;
     }
 
     .info__price {
-        font-size: 1.625rem;
+        font-size: 24px;
     }
 
     .seller-card {
@@ -325,7 +279,7 @@ body {
     }
 
     .info__title {
-        font-size: 1.25rem;
+        font-size: 20px;
     }
 
     .cart-fab {
@@ -388,10 +342,10 @@ body {
                     <img src="{{ !empty($book->seller?->avatar) ? $book->seller->avatar : asset('icon-images/profile.png') }}" alt="{{ $book->seller?->name ?? 'Profile' }}" />
                 </div>
                 <div class="seller-card__body">
-                    <span class="seller-card__name:">
+                    <span class="seller-card__name">
                         {{ $book->user?->name ?? 'Unknown' }}
                     </span>
-                    <span class="seller-card__online">
+                    <span class="seller-card__detail">
                         Penjual Buku
                     </span>
                 </div>
@@ -445,7 +399,7 @@ body {
 
 @endauth
 
-        </a>
+
     </div>
 </div>
     @if(session('cart_success'))
